@@ -1,0 +1,46 @@
+1)Config folder will hold all the upgrade configuration for the diff modules
+that we are going to be working with.
+
+2)Constants folder will have some constants or variables that we don't want to change across our apps.
+
+
+
+3)app = Flask(__name__)               #when we instantiate flask it needs to know where it is being 
+                                    #configured from and that's why we are passing this __name__.
+
+
+4)
+#in terminal put '' export FLASK_ENV=development '' by default flask will assume that we are running 
+# in production so you need to tell it that we are running in development so that it can give us like 
+# debugging errors and all that stuff.
+# 2)
+# path to our flask app "export FLASK_APP=app"    in windows use set instead of export
+# 3) flask run in terminal
+
+5)For DB:-
+Create database.py
+After creating models and adding it in init file
+run on terminal following statements:-
+
+a. flask shell
+b.from src.database import db
+c.db.create_all()
+d.db
+e.db.drop_all   #to delete all tables
+
+6) Http status code - is basically a standard way for servers to communicate to the client of what happened on the server.
+
+7)So we are making restapi which is intended to be consumed by diff types of clients so we can have an
+app that may be the chrome extension, an android app, an ios app, a front-end app like a react app
+so authenticating across all those diff types of clients calls for a solution that is not session based because by default we can use seesions to track which user is logged in when the log out and what they can access but that would not work if we are going to like ave a mobile app so the approach that we take in that scenario is to implement token based authentication, where whenever a user has a correct login on our server we give them a token that they can use to make calls so that we can identify which user it is depending on the token that is being sent to us.
+
+previously the way we would implement this is with great like a token table where we have like a user and their tokens but most recently we have a new standard called jwt. 
+
+JWT allows us to create these tokens without having to maintain a database table for these tokens and their users. Generally what jwt does this by using encryption techniques that based on a secret key. so with a secret key we can be ale to encode user's info into a token and then when that token comes back we can decrypt it using a secret key and then we can tell which user it is without having to make a call to a database
+
+8) make sure your JWT secret key is very secured so make sure it doesn't really leak to version control and it should only be known to your server.
+
+9)If the token is malformed or it has benn tampered ..you should be able to see that the token was not correct.So to get real user we are using get_jwt_identity.
+
+
+9)pdb is python debugger - it enables us to pause a program and then we can expect some variables and functions
